@@ -7,13 +7,16 @@ import (
 
 	"github.com/cryptopunkscc/astrald/astral"
 	"github.com/cryptopunkscc/astrald/astral/log"
+	"github.com/cryptopunkscc/astrald/lib/query"
 	"github.com/cryptopunkscc/astrald/mod/auth"
 	"github.com/cryptopunkscc/astrald/mod/dir"
 	"github.com/cryptopunkscc/astrald/mod/exonet"
+	"github.com/cryptopunkscc/astrald/mod/ip"
 	"github.com/cryptopunkscc/astrald/mod/keys"
 	"github.com/cryptopunkscc/astrald/mod/nodes"
 	"github.com/cryptopunkscc/astrald/mod/objects"
 	"github.com/cryptopunkscc/astrald/mod/shell"
+	"github.com/cryptopunkscc/astrald/mod/utp"
 	"github.com/cryptopunkscc/astrald/resources"
 	"github.com/cryptopunkscc/astrald/sig"
 )
@@ -31,8 +34,10 @@ type Deps struct {
 	Auth    auth.Module
 	Dir     dir.Module
 	Exonet  exonet.Module
+	IP      ip.Module
 	Keys    keys.Module
 	Objects objects.Module
+	UTP     utp.Module
 }
 
 type Module struct {
@@ -56,6 +61,8 @@ type Module struct {
 	in chan *Frame
 
 	searchCache sig.Map[string, *astral.Identity]
+
+	*query.Point
 }
 
 type Relay struct {
